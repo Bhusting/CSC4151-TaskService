@@ -27,9 +27,9 @@ namespace CSC4151_TaskService.ASB
         {
             string endpointName;
 #if DEBUG
-            endpointName = $"Tak.ProfileService.{Environment.MachineName}";
+            endpointName = $"Tak.TaskService.{Environment.MachineName}";
 #else
-            endpointName = "Tak.ProfileService";
+            endpointName = "Tak.TaskService";
 #endif
 
             await CreateQueueIfNotExist(_settings.ServiceBus, endpointName);

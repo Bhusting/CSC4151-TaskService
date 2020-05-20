@@ -6,6 +6,7 @@ using Common.Clients;
 using Common.Repositories;
 using Common.Settings;
 using CSC4151_TaskService.ASB;
+using CSC4151_TaskService.Handlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -46,7 +47,18 @@ namespace CSC4151_TaskService
             services.AddSingleton<SqlClient>();
 
             // ServiceBus
-            services.AddSingleton<IQueueClient>(new QueueClient(config.ServiceBus, "CSC4151-TaskWorker"));
+            string endpointName;
+#if DEBUG
+            endpointName = $"Tak.TaskWorker.{Environment.MachineName}";
+#else
+            endpointName = "Tak.TaskWorker";
+#endif
+
+            services.AddSingleton<CreateTaskHandler>();
+            services.AddSingleton<DeleteTaskHandler>();
+
+            services.AddSingleton<IQueueClient>(new QueueClient(config.ServiceBus, endpointName));
+            
             services.AddSingleton<ServiceBusClient>();
             services.AddHostedService<EndpointInitializer>();
 

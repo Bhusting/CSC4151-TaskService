@@ -13,7 +13,7 @@ namespace CSC4151_TaskService.Handlers
     {
         private readonly ITaskRepository _taskRepository;
 
-        public CreateTaskHandler(ILogger<CreateTaskHandler> logger, ITaskRepository taskRepository)
+        public CreateTaskHandler(ITaskRepository taskRepository)
         {
             _taskRepository = taskRepository;
         }

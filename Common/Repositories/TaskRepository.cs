@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Common.Builders;
 using Common.Clients;
 using Common.Messaging;
+using Common.Time;
 using Domain;
 using Microsoft.Azure.ServiceBus;
 using Task = System.Threading.Tasks.Task;
@@ -42,7 +43,7 @@ namespace Common.Repositories
 
         public async Task CreateTask(TaskDTO taskDto)
         {
-            var time = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse(taskDto.Duration));
+            var time = DateTime.Now.TimeOfDay.Add(taskDto.Duration.ParseEndTime());
 
             var task = new Domain.Task();
             task.TaskId = taskDto.TaskId;
