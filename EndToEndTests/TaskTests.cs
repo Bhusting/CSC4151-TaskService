@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Common.Time;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -42,6 +43,14 @@ namespace EndToEndTests
             var profile = JsonConvert.DeserializeObject<List<Domain.Task>>(body);
 
             Assert.True(profile[0].TaskId == Guid.Empty);
+        }
+
+        [Fact]
+        public async Task TestTime()
+        {
+            var time = CustomTimeParser.ParseEndTime("01:01");
+
+
         }
     }
 }
